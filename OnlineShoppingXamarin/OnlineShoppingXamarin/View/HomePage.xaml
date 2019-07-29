@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="OnlineShoppingXamarin.HomePage">
+    <ContentPage.Content>
+        <StackLayout>
+        <StackLayout VerticalOptions="Start" 
+                               HorizontalOptions="FillAndExpand" 
+                               Orientation="Horizontal"          
+                               Padding="10,5,10,5" BackgroundColor="GreenYellow">
+             <Label HorizontalOptions="StartAndExpand" Text="{Binding UserName}" VerticalOptions="Center"></Label>
+             <Image HorizontalOptions="End" Source="cart.png" WidthRequest="50" HeightRequest="50"></Image>
+        
+    </StackLayout>
+            <StackLayout>
+                <ListView x:Name="listView"
+                    HorizontalOptions="FillAndExpand"
+                  
+                  IsPullToRefreshEnabled="True"
+                          ItemsSource="{Binding Products}"
+                  SelectedItem="{Binding SelectedProduct}"
+                  
+                   
+                  >
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate >
+                            <ViewCell >
+                                <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="StartAndExpand"
+                                             
+                                             VerticalOptions="FillAndExpand" >
+                                    <Image Source="{Binding ImageUrl}"></Image>
+                                    <StackLayout VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"
+                                                >
+                                        <Label Text="{Binding ProductName}"></Label>
+                                        <Label Text="{Binding Price}"></Label>
+                                        <Label Text="{Binding Quantity}"></Label>
+                                        <Label Text="{Binding Description}"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackLayout>
+       </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
