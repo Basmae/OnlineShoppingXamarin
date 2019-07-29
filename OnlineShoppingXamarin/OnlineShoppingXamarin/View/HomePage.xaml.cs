@@ -1,4 +1,5 @@
-﻿using OnlineShoppingXamarin.ViewModel;
+﻿using OnlineShoppingXamarin.Model;
+using OnlineShoppingXamarin.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,15 @@ namespace OnlineShoppingXamarin
 
         public HomePage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
             BindingContext = new HomeViewModel(Navigation);
+
+        }
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var vm = (HomeViewModel)(BindingContext);
+            vm.DetailsCommand.Execute((Product)e.SelectedItem);
 
         }
     }

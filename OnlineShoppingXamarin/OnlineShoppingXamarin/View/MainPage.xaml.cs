@@ -21,9 +21,11 @@ namespace OnlineShoppingXamarin
 
         public MainPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
             BindingContext = new LoginViewModel(Navigation);
             UserName.TextChanged += new EventHandler<TextChangedEventArgs>(ButtonEnabled);
+
         }
         private void ButtonEnabled(object sender ,EventArgs e)
         {
