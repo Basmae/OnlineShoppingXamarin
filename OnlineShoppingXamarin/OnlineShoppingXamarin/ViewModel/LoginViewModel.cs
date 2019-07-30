@@ -28,7 +28,7 @@ namespace OnlineShoppingXamarin.ViewModel
             if (await UserService.UserExist(UserName))
             {
                 Storage.SetProperty("UserName", UserName);
-                await Navigation.PushModalAsync(new HomePage());
+                await Navigation.PushAsync(new HomePage());
             }
             else
             {
