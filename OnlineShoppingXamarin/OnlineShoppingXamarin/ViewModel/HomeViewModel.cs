@@ -35,7 +35,7 @@ namespace OnlineShoppingXamarin.ViewModel
         private async void ProductSelected()
         {
             Storage.SetProperty("SelectedProduct", SelectedProduct);
-             await Navigation.PushAsync(new ProductDetails());
+             await Navigation.PushAsync(new ProductDetails(SelectedProduct.ProductId));
         }
 
        

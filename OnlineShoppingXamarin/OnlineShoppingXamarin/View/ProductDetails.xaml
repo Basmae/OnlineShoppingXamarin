@@ -4,14 +4,46 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:OnlineShoppingXamarin.View"
+             xmlns:forms="clr-namespace:Naxam.Controls.Forms;assembly=Naxam.CarouselView.Forms"
              mc:Ignorable="d"
              x:Class="OnlineShoppingXamarin.View.ProductDetails">
     <ContentPage.Content>
         <StackLayout>
             <view:NavBar></view:NavBar>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ScrollView>
+            <StackLayout>
+                <Label Text="{Binding Product.ProductName}" FontSize="Large" Margin="10"></Label>
+                    <forms:CarouselView  ItemSource="{Binding  ProductImages}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <forms:CarouselView.ItemTemlate>
+                            <DataTemplate>
+                                <ViewCell >
+                                    <StackLayout Orientation="Vertical">
+                                        <Image Source="{Binding ImageUrl}" HeightRequest="100"></Image>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </forms:CarouselView.ItemTemlate>
+                    </forms:CarouselView>
+                
+                    <Label Text="{Binding Product.Price , StringFormat='{0:C}'}" FontSize="Large" FontAttributes="Bold"/>
+                <Label Text="{Binding Product.Description}"/>
+                <StackLayout Orientation="Horizontal" >
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Stepper x:Name="CounterStepper"
+                             Minimum="1"
+                             Increment="1"
+                             Value="1">
+
+                            </Stepper>
+                            <Label Text="{Binding Source={x:Reference CounterStepper},Path=Value}" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    
+                    <Button Text="Add To Cart" HorizontalOptions="End" BackgroundColor="GreenYellow" Command="{Binding AddToCart}"></Button>
+                </StackLayout>
+
+            </StackLayout>
+            </ScrollView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

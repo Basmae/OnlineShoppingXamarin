@@ -16,20 +16,74 @@ namespace OnlineShoppingXamarin.Services
         {
             new User
             {
-                UserId=Guid.NewGuid(),
+                UserId=1,
                 UserName="Basma"
             },
             new User
             {
-                UserId=Guid.NewGuid(),
+                UserId=2,
                 UserName="Ola"
             },
              new User
             {
-                UserId=Guid.NewGuid(),
+                UserId=3,
                 UserName="Ahmed"
             }
         };
+        List<Cart> carts = new List<Cart>()
+        {
+            new Cart
+            {
+                CartId=1,
+                IsSubmitted=false,
+                ProductId=1,
+                Quantity=1,
+                UserId=1,
+                Price=1000
+            },
+            new Cart
+            {
+                CartId=2,
+                IsSubmitted=false,
+                ProductId=2,
+                Quantity=1,
+                UserId=1,
+                Price=1000
+            },
+            new Cart
+            {
+                CartId=3,
+                IsSubmitted=false,
+                ProductId=1,
+                Quantity=1,
+                UserId=2,
+                Price=1000
+            }
+
+        };
+        public void AddToCart(int UserId, int ProdId,int quantity)
+        {
+            carts.Add(new Cart
+            {
+                CartId=carts.Count+1,
+                IsSubmitted=false,
+                ProductId=ProdId,
+                UserId=UserId,
+                Quantity=quantity,
+                Price=500
+            });
+        }
+
+        public User GetUser(string userName)
+        {
+            foreach(User user in users)
+            {
+                if (user.UserName == userName)
+                    return user;
+            }
+            return null;
+        }
+
         public async Task<bool> UserExist(string userName)
         {
          //   var json = await httpClient.GetStringAsync(url+"/Name/" + userName);

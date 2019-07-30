@@ -6,8 +6,8 @@ namespace OnlineShoppingXamarin.Model
 {
     public class Order
     {
-        public Guid OrderId { get; set; }
-        public Guid CartId { get; set; }
-        public Guid UserId { get; set; }
+        public int OrderId { get; set; }
+        public int CartId { get; set; }
+        public int UserId { get; set; }
     }
 }

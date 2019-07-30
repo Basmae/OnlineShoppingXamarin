@@ -15,6 +15,7 @@ namespace OnlineShoppingXamarin.View
         public CartPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
+           // BindingContext = new HomeViewModel(Navigation);
             InitializeComponent();
         }
     }

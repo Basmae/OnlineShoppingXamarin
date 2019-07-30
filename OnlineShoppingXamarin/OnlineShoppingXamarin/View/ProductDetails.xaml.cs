@@ -14,12 +14,14 @@ namespace OnlineShoppingXamarin.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductDetails : ContentPage
     {
-        public ProductDetails()
+        public ProductDetails(int ProductId)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
+            BindingContext = new ProductDetailsViewModel(Navigation,ProductId);
+
         }
-       
+
 
     }
 }
