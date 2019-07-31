@@ -32,7 +32,8 @@
                             <Stepper x:Name="CounterStepper"
                              Minimum="1"
                              Increment="1"
-                             Value="1">
+                             Value="{Binding Counter}"
+                                     >
 
                             </Stepper>
                             <Label Text="{Binding Source={x:Reference CounterStepper},Path=Value}" VerticalTextAlignment="Center"/>

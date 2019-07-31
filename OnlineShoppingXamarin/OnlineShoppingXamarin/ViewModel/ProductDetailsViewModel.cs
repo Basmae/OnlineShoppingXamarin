@@ -47,7 +47,10 @@ namespace OnlineShoppingXamarin.ViewModel
         {
             User user = UserService.GetUser(Storage.GetProperty("UserName").ToString());
             UserService.AddToCart(user.UserId, Product.ProductId, Counter);
+            // Storage.ReturnHome();
+            Page opened = Storage.GetLastPage();
             await Navigation.PushAsync(new HomePage());
+            Navigation.RemovePage(opened);
         }
     }
 }

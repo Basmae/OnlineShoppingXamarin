@@ -2,6 +2,7 @@
 using OnlineShoppingXamarin.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace OnlineShoppingXamarin.Services
     {
         private string url = "https://localhost:44367/api/users";
         HttpClient httpClient = new HttpClient();
+        ProductService ProductService = new ProductService();
         List<User> users = new List<User>()
         {
             new User
@@ -74,6 +76,18 @@ namespace OnlineShoppingXamarin.Services
             });
         }
 
+        public int GetCartCounter(string userName)
+        {
+            User user = users.FirstOrDefault(u => u.UserName == userName);
+            int counter = 0;
+            var carts = GetUserCarts(user.UserId);
+            foreach(Cart cart in carts)
+            {
+                counter += cart.Quantity;
+            }
+            return counter;
+        }
+
         public User GetUser(string userName)
         {
             foreach(User user in users)
@@ -82,6 +96,17 @@ namespace OnlineShoppingXamarin.Services
                     return user;
             }
             return null;
+        }
+
+        public List<Cart> GetUserCarts(int UserId)
+        {
+            List<Cart> UserCarts = new List<Cart>();
+            foreach(Cart cart in carts)
+            {
+                if (cart.UserId == UserId)
+                    UserCarts.Add(cart);
+            }
+            return UserCarts;
         }
 
         public async Task<bool> UserExist(string userName)

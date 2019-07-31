@@ -11,5 +11,6 @@ namespace OnlineShoppingXamarin.Services
          Task<List<Product>> GetAllProducts();
         Product GetProduct(int ProductId);
         List<Image> GetProductImages(int ProductId);
+        List<Product> GetFilterProducts(int min, int max);
     }
 }

@@ -11,6 +11,9 @@ namespace OnlineShoppingXamarin.Services
          Task<Boolean> UserExist(string userName);
         void AddToCart(int UserId, int ProdId,int quantity);
         User GetUser(string userName);
+        List<Cart> GetUserCarts(int UserId);
+        int GetCartCounter(string userName);
+       
 
     }
 }

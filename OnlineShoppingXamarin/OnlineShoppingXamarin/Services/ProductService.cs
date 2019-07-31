@@ -69,6 +69,11 @@ namespace OnlineShoppingXamarin.Services
             return sortedProducts;
         }
 
+        public List<Product> GetFilterProducts(int min, int max)
+        {
+            return products.Where(p => p.Price >= min && p.Price <= max).ToList();
+        }
+
         public Product GetProduct(int ProductId)
         {
             foreach(var prod in products)

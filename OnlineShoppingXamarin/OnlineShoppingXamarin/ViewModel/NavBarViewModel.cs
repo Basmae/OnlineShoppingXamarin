@@ -1,4 +1,5 @@
-﻿using OnlineShoppingXamarin.View;
+﻿using OnlineShoppingXamarin.Services;
+using OnlineShoppingXamarin.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,28 +13,33 @@ namespace OnlineShoppingXamarin.ViewModel
         public String UserName { get; set; }
 
         public INavigation Navigation { get; set; }
-
+        public IUserService UserService { get; set; }
         public ICommand MenuCommand { get; private set; }
         public ICommand CartCommand { get; private set; }
        
-        public bool MenuIsVisible { get; set; } = true;
         public int CartCounter { get; set; }
 
         public NavBarViewModel(INavigation _Navigation)
         {
             Navigation = _Navigation;
-            Storage.SetProperty("CartCounter", 4);
+            UserService = new UserService();
             UserName = (string)Storage.GetProperty("UserName");
-            CartCounter = (int)Storage.GetProperty("CartCounter");
+            CartCounter = UserService.GetCartCounter(UserName);
             MenuCommand = new Command(OpenMenu);
             CartCommand = new Command(OpenCart);
+            
         }
 
         private async void OpenMenu()
         {
-           
-          var action =await App.Current.MainPage.DisplayActionSheet("Menu", "cancel", null,"Home","Filter","Sync","Logout");
-         switch(action)
+            string action;
+            var stack = App.Current.MainPage.Navigation.NavigationStack;
+            Page openedPage = stack[stack.Count - 1];
+           if ( openedPage is HomePage)
+               action =await App.Current.MainPage.DisplayActionSheet("Menu", "cancel", null,"Home","Filter","Sync","Logout");
+           else
+                action = await App.Current.MainPage.DisplayActionSheet("Menu", "cancel", null, "Home", "Sync", "Logout");
+            switch (action)
             {
                 case "Home":
                     NavHome();
@@ -51,14 +57,28 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         private async void OpenCart()
         {
-           await Navigation.PushAsync(new CartPage());
+            
+            Page openedPage = Storage.GetLastPage();
+            if (!(openedPage is CartPage))
+            {
+                await Navigation.PushAsync(new CartPage());
+                Navigation.RemovePage(openedPage);
+
+            }
         }
         private async void NavHome()
         {
-           await Navigation.PushAsync(new HomePage());
+            Page openedPage = Storage.GetLastPage();
+
+            if (!(openedPage is HomePage))
+            {
+                await Navigation.PushAsync(new HomePage());
+                Navigation.RemovePage(openedPage);
+            }
         }
-        private void NavFilter()
+        private async void NavFilter()
         {
+            await Navigation.PushAsync(new FilterPage());
         }
         private void NavSync()
         {

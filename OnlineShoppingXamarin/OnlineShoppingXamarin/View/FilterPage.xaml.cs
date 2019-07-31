@@ -11,13 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace OnlineShoppingXamarin.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CartPage : ContentPage
+    public partial class FilterPage : ContentPage
     {
-        public CartPage()
+        public FilterPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new CartViewModel(Navigation);
             InitializeComponent();
+            BindingContext = new FilterViewModel(Navigation);
         }
     }
 }
