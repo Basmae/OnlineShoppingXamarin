@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace OnlineShoppingXamarin.ViewModel
@@ -35,18 +36,29 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         public async void UserExist()
         {
-            IsLoading = true;
-            if (await UserService.UserExist(UserName))
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                Storage.SetProperty("UserName", UserName);
-                IsLoading = false;
-                await Navigation.PushAsync(new HomePage());
+                try
+                {
+                    IsLoading = true;
+                    if (await UserService.UserExist(UserName))
+                    {
+                        Storage.SetProperty("UserName", UserName);
+                        IsLoading = false;
+                        await Navigation.PushAsync(new HomePage());
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Login Error", "Please enter a valid name", "Ok");
+                    }
+                }
+                catch (Exception e) {
+                    await App.Current.MainPage.DisplayAlert("Internet Connection", "time out", "Cancel");
+
+                }
             }
             else
-            {
-                await App.Current.MainPage.DisplayAlert("Login Error", "Please enter a valid name", "Ok");
-            }
-
+                await App.Current.MainPage.DisplayAlert("Internet Connection","please turn on your Internet connection","Cancel");
 
 
         }
