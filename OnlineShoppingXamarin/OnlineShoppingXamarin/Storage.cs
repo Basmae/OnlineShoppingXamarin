@@ -31,19 +31,7 @@ namespace OnlineShoppingXamarin
                 properties.Add(propertyKey, obj);
             }
         }
-        public static async void ReturnHome()
-        {
-            var stack = App.Current.MainPage.Navigation.NavigationStack;
-            for(int i=stack.Count-1;i>0;i--)
-            {
-                if (stack[i] is MainPage)
-                {
-                    break;
-                }
-                else
-                    await App.Current.MainPage.Navigation.PopAsync();
-            }
-        }
+       
         public static Page GetLastPage()
         {
             var stack = App.Current.MainPage.Navigation.NavigationStack;
