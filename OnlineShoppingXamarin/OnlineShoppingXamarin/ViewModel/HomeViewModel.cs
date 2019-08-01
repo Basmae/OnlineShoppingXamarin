@@ -27,7 +27,23 @@ namespace OnlineShoppingXamarin.ViewModel
         {
             Navigation = _Navigation;
             ProductService = new ProductService();
-            Products = ProductService.GetAllProducts().Result;
+            int min, max;
+            if (Storage.GetProperty("MinimumFilter") == null && Storage.GetProperty("MaximumFilter") == null)
+            {
+                min = 0;
+                max = 0;
+            }
+            else
+            {
+                min = (int)Storage.GetProperty("MinimumFilter");
+                max = (int)Storage.GetProperty("MaximumFilter");
+            }
+            if (min == 0 && max == 0)
+                Products = ProductService.GetAllProducts().Result;
+            else
+                Products = ProductService.GetFilterProducts(min, max);
+            Storage.SetProperty("MinimumFilter",0);
+            Storage.SetProperty("MaximumFilter", 0);
             DetailsCommand = new Command(ProductSelected);
            
         }
@@ -35,7 +51,7 @@ namespace OnlineShoppingXamarin.ViewModel
         private async void ProductSelected()
         {
             Storage.SetProperty("SelectedProduct", SelectedProduct);
-             await Navigation.PushAsync(new ProductDetails());
+             await Navigation.PushAsync(new ProductDetails(SelectedProduct.ProductId));
         }
 
        

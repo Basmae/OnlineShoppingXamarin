@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShoppingXamarin.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace OnlineShoppingXamarin.View
         public CartPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
+            BindingContext = new CartViewModel(Navigation);
             InitializeComponent();
         }
     }

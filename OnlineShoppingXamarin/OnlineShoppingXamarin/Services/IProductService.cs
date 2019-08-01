@@ -9,6 +9,8 @@ namespace OnlineShoppingXamarin.Services
     public interface IProductService
     {
          Task<List<Product>> GetAllProducts();
-        Task<Product> GetProduct(Guid ProductId);
+        Product GetProduct(int ProductId);
+        List<Image> GetProductImages(int ProductId);
+        List<Product> GetFilterProducts(int min, int max);
     }
 }

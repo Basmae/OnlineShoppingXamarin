@@ -1,5 +1,4 @@
-﻿using OnlineShoppingXamarin.Model;
-using OnlineShoppingXamarin.ViewModel;
+﻿using OnlineShoppingXamarin.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace OnlineShoppingXamarin.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProductDetails : ContentPage
+    public partial class FilterPage : ContentPage
     {
-        public ProductDetails(int ProductId)
+        public FilterPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            BindingContext = new ProductDetailsViewModel(Navigation,ProductId);
-
+            BindingContext = new FilterViewModel(Navigation);
         }
-
-
     }
 }
