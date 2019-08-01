@@ -25,9 +25,9 @@
                 <Label Grid.Column="2" Text="Price" HorizontalTextAlignment="Center"></Label>
                 <Label Grid.Column="3" Text="Quantity" HorizontalTextAlignment="Center"></Label>
             </Grid>
-          
-       
-        <ListView x:Name="CartlistView"
+
+
+            <ListView x:Name="CartlistView"
                     HorizontalOptions="FillAndExpand"
                   IsPullToRefreshEnabled="True"
                   ItemsSource="{Binding Carts}"
@@ -66,7 +66,8 @@
 
             </ListView>
             <Button HorizontalOptions="End" VerticalOptions="End" Text="Submit" 
-                    BackgroundColor="GreenYellow" Padding="40,0,40,0" Margin="0,0,20,20"></Button>
+                    BackgroundColor="GreenYellow" Padding="40,0,40,0" Margin="0,0,20,20" 
+                    Command="{Binding SubmitCommand}" IsEnabled="{Binding }"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

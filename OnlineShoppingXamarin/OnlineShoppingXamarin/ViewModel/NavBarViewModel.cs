@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace OnlineShoppingXamarin.ViewModel
 {
-    public class NavBarViewModel
+    public class NavBarViewModel:PropertyChange
     {
         public String UserName { get; set; }
 
@@ -16,18 +16,29 @@ namespace OnlineShoppingXamarin.ViewModel
         public IUserService UserService { get; set; }
         public ICommand MenuCommand { get; private set; }
         public ICommand CartCommand { get; private set; }
-       
-        public int CartCounter { get; set; }
+       private int cartCounter { get; set; }
+        public int CartCounter { get=>cartCounter; set {
+                if (cartCounter != value)
+                {
+                    cartCounter = value;
+                    OnPropertyChanged(nameof(CartCounter));
+                }
+            } }
 
         public NavBarViewModel(INavigation _Navigation)
         {
             Navigation = _Navigation;
             UserService = new UserService();
             UserName = (string)Storage.GetProperty("UserName");
-            CartCounter = UserService.GetCartCounter(UserName);
             MenuCommand = new Command(OpenMenu);
             CartCommand = new Command(OpenCart);
+            GetData();
             
+        }
+        private async void GetData()
+        {
+            CartCounter =await UserService.GetCartCounter(UserName);
+
         }
 
         private async void OpenMenu()

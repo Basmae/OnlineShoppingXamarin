@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:OnlineShoppingXamarin.View"
              xmlns:forms="clr-namespace:Naxam.Controls.Forms;assembly=Naxam.CarouselView.Forms"
+             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              mc:Ignorable="d"
              x:Class="OnlineShoppingXamarin.View.ProductDetails">
     <ContentPage.Content>
@@ -13,17 +14,14 @@
             <ScrollView>
             <StackLayout>
                 <Label Text="{Binding Product.ProductName}" FontSize="Large" Margin="10"></Label>
-                    <forms:CarouselView  ItemSource="{Binding  ProductImages}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                        <forms:CarouselView.ItemTemlate>
+                    <Image Source="{Binding ProductImages[0].ImageUrl}"/>
+                    <carousel:CarouselViewControl ItemsSource="{Binding  ProductImages}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <carousel:CarouselViewControl.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell >
-                                    <StackLayout Orientation="Vertical">
-                                        <Image Source="{Binding ImageUrl}" HeightRequest="100"></Image>
-                                    </StackLayout>
-                                </ViewCell>
+                                     <Image Source="{Binding ImageUrl}" HeightRequest="300"></Image>
                             </DataTemplate>
-                        </forms:CarouselView.ItemTemlate>
-                    </forms:CarouselView>
+                        </carousel:CarouselViewControl.ItemTemplate>
+                    </carousel:CarouselViewControl>
                 
                     <Label Text="{Binding Product.Price , StringFormat='{0:C}'}" FontSize="Large" FontAttributes="Bold"/>
                 <Label Text="{Binding Product.Description}"/>

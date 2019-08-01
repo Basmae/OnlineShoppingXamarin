@@ -6,7 +6,7 @@ namespace OnlineShoppingXamarin.Model
 {
     public class User
     {
-        public string UserName { get; set; }
-        public int UserId { get; set; }
+        public string Name { get; set; }
+        public Guid Id { get; set; }
     }
 }

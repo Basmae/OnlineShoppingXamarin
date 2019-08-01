@@ -19,5 +19,6 @@ namespace OnlineShoppingXamarin.View
             BindingContext = new NavBarViewModel(Navigation);
             
         }
+        
     }
 }

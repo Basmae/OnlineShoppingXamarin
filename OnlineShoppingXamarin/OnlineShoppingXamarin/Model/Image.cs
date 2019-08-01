@@ -6,8 +6,8 @@ namespace OnlineShoppingXamarin.Model
 {
     public class Image
     {
-        public int ImageId { get; set; }
+        public Guid ID { get; set; }
         public string ImageUrl { get; set; }
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
     }
 }

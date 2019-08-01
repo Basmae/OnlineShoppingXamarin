@@ -19,5 +19,11 @@ namespace OnlineShoppingXamarin.View
             BindingContext = new CartViewModel(Navigation);
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var vm = (CartViewModel)(BindingContext);
+            vm.OnAppearing();
+        }
     }
 }
