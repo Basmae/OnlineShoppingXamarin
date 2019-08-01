@@ -32,6 +32,15 @@ namespace OnlineShoppingXamarin.Services
             await httpClient.PostAsync(url + "Carts",content );
         }
 
+        public async void DeleteCart(Cart cart)
+        {
+            var json = JsonConvert.SerializeObject(cart);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+           await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Delete, url+"Carts")
+            { Content =content});
+
+        }
+
         public async Task<int> GetCartCounter(string userName)
         {
             var User = await GetUser(userName);

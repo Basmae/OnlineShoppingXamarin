@@ -1,7 +1,9 @@
-﻿using OnlineShoppingXamarin.Services;
+﻿using OnlineShoppingXamarin.Model;
+using OnlineShoppingXamarin.Services;
 using OnlineShoppingXamarin.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -24,7 +26,7 @@ namespace OnlineShoppingXamarin.ViewModel
                     OnPropertyChanged(nameof(CartCounter));
                 }
             } }
-
+        
         public NavBarViewModel(INavigation _Navigation)
         {
             Navigation = _Navigation;
@@ -32,11 +34,17 @@ namespace OnlineShoppingXamarin.ViewModel
             UserName = (string)Storage.GetProperty("UserName");
             MenuCommand = new Command(OpenMenu);
             CartCommand = new Command(OpenCart);
+            MessagingCenter.Subscribe<CartViewModel,Cart>(this, "CartUpdated", CounterChanged);
             GetData();
             
         }
+        private void CounterChanged(object sender , Cart cart)
+        {
+            CartCounter--;
+        }
         private async void GetData()
         {
+
             CartCounter =await UserService.GetCartCounter(UserName);
 
         }

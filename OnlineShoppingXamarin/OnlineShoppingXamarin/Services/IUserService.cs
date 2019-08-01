@@ -15,6 +15,7 @@ namespace OnlineShoppingXamarin.Services
         Task<ObservableCollection<Cart>> GetUserCarts(Guid UserId);
         Task<int> GetCartCounter(string userName);
         void SubmitOrder(Guid UserId);
+        void DeleteCart(Cart cart);
        
 
     }

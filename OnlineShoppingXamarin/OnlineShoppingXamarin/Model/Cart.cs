@@ -18,5 +18,6 @@ namespace OnlineShoppingXamarin.Model
         public double Price { get; set; }
 
         public bool IsSubmitted { get; set; }
+        public string ProductName { get; set; }
     }
 }

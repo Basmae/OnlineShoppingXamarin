@@ -45,5 +45,12 @@ namespace OnlineShoppingXamarin.Services
             ObservableCollection<Image> productImages = JsonConvert.DeserializeObject<ObservableCollection<Image>>(result);
             return productImages;
         }
+
+        public async Task<string> GetProductName(Guid ProductId)
+        {
+            Product Prod = await GetProduct(ProductId);
+            return Prod.ProductName;
+
+        }
     }
 }
