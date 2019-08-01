@@ -4,9 +4,16 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:OnlineShoppingXamarin.View"
+             xmlns:super="clr-namespace:OnlineShoppingXamarin"
              mc:Ignorable="d"
-             x:Class="OnlineShoppingXamarin.View.CartPage">
+             x:Class="OnlineShoppingXamarin.View.CartPage"
+             x:Name="Cart">
+    <ContentPage.Resources>
+        <super:Converter x:Key="Converter"/>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
+        
         <StackLayout>
             <view:NavBar></view:NavBar>
 
@@ -25,13 +32,15 @@
                 <Label Grid.Column="2" Text="Price" HorizontalTextAlignment="Center"></Label>
                 <Label Grid.Column="3" Text="Quantity" HorizontalTextAlignment="Center"></Label>
             </Grid>
-          
-       
-        <ListView x:Name="CartlistView"
+
+
+            <ListView x:Name="CartlistView"
                     HorizontalOptions="FillAndExpand"
                   IsPullToRefreshEnabled="True"
                   ItemsSource="{Binding Carts}"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                      SelectedItem="{Binding SelectedCart}"
+                          ItemSelected="ListView_ItemSelected">
                 
                
 
@@ -46,12 +55,31 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                
-                                <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Grid.Column="0"/>
+
+                                <Image Source="{Binding Product.ImageUrl}" WidthRequest="100" HeightRequest="100" Grid.Column="0"/>
                                 <StackLayout HorizontalOptions="FillAndExpand" Grid.Column="1">
-                                    <Label Text="{Binding ProductId}" ></Label>
-                                    <Label Text="InStock" TextColor="Green"  />
-                                    <Label Text="Delete" ></Label>
+                                    <Label Text="{Binding ProductName}" ></Label>
+                                    <Label Text="InStock" TextColor="Green" IsVisible="{Binding !Product.Quantity,
+                                           Converter={StaticResource Converter}}" />
+                                    <Label Text="OutStock" TextColor="Red" IsVisible="{Binding Product.Quantity,
+                                           Converter={StaticResource Converter}}" />
+                                    <Label >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Delete"
+                                                   TextColor="Blue"
+                                                    TextDecorations="Underline">
+                                                    <Span.GestureRecognizers>
+                                                        <TapGestureRecognizer
+                                                            Command="{Binding Path=BindingContext.DeleteCommand,
+                                                            Source={x:Reference Cart}
+                                                            }" CommandParameter="{Binding .}"
+                                          />
+                                                    </Span.GestureRecognizers>
+                                                </Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
                                 </StackLayout>
                                 <Label Text="{Binding Price , StringFormat='{0:C}'}"
                                        Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -66,7 +94,8 @@
 
             </ListView>
             <Button HorizontalOptions="End" VerticalOptions="End" Text="Submit" 
-                    BackgroundColor="GreenYellow" Padding="40,0,40,0" Margin="0,0,20,20"></Button>
+                    BackgroundColor="GreenYellow" Padding="40,0,40,0" Margin="0,0,20,20" 
+                    Command="{Binding SubmitCommand}" IsEnabled="{Binding Carts.Count}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -3,6 +3,7 @@ using OnlineShoppingXamarin.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,5 +30,12 @@ namespace OnlineShoppingXamarin
             vm.DetailsCommand.Execute((Product)e.SelectedItem);
 
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var vm = (HomeViewModel)(BindingContext);
+            vm.OnAppearing();
+        }
+       
     }
 }
