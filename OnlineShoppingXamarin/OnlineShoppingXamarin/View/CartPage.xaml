@@ -67,7 +67,7 @@
             </ListView>
             <Button HorizontalOptions="End" VerticalOptions="End" Text="Submit" 
                     BackgroundColor="GreenYellow" Padding="40,0,40,0" Margin="0,0,20,20" 
-                    Command="{Binding SubmitCommand}" IsEnabled="{Binding }"/>
+                    Command="{Binding SubmitCommand}" IsEnabled="{Binding Carts.Count}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -50,6 +50,12 @@ namespace OnlineShoppingXamarin.ViewModel
             AddToCart = new Command(AddCart);
             ProductService = new ProductService();
             UserService = new UserService();
+            productImages = new ObservableCollection<Model.Image>();
+            productImages.Add(new Model.Image
+            {
+                ImageUrl = "https://res.cloudinary.com/practicaldev/image/fetch/s--bIcIUu5D--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/t7u2rdii5u9n4zyqs2aa.jpg"
+            });
+           
            
         }
         public void OnAppearing()

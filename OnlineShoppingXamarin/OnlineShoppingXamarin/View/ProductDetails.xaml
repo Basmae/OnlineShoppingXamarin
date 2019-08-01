@@ -4,24 +4,24 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:OnlineShoppingXamarin.View"
-             xmlns:forms="clr-namespace:Naxam.Controls.Forms;assembly=Naxam.CarouselView.Forms"
-             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              mc:Ignorable="d"
-             x:Class="OnlineShoppingXamarin.View.ProductDetails">
+             x:Class="OnlineShoppingXamarin.View.ProductDetails"
+             xmlns:carousel="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView">
     <ContentPage.Content>
         <StackLayout>
             <view:NavBar></view:NavBar>
             <ScrollView>
             <StackLayout>
                 <Label Text="{Binding Product.ProductName}" FontSize="Large" Margin="10"></Label>
-                    <Image Source="{Binding ProductImages[0].ImageUrl}"/>
-                    <carousel:CarouselViewControl ItemsSource="{Binding  ProductImages}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                        <carousel:CarouselViewControl.ItemTemplate>
+                    <carousel:CarouselView ItemsSource="{Binding  ProductImages}" HorizontalOptions="Fill" HeightRequest="300">
+                        <carousel:CarouselView.ItemTemplate>
                             <DataTemplate>
-                                     <Image Source="{Binding ImageUrl}" HeightRequest="300"></Image>
+                                <StackLayout>
+                                    <Image Source="{Binding ImageUrl}" HeightRequest="300"></Image>
+                                </StackLayout>
                             </DataTemplate>
-                        </carousel:CarouselViewControl.ItemTemplate>
-                    </carousel:CarouselViewControl>
+                        </carousel:CarouselView.ItemTemplate>
+                    </carousel:CarouselView>
                 
                     <Label Text="{Binding Product.Price , StringFormat='{0:C}'}" FontSize="Large" FontAttributes="Bold"/>
                 <Label Text="{Binding Product.Description}"/>

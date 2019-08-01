@@ -68,10 +68,17 @@ namespace OnlineShoppingXamarin.ViewModel
                 min = (int)Storage.GetProperty("MinimumFilter");
                 max = (int)Storage.GetProperty("MaximumFilter");
             }
+            ObservableCollection<Product> Prod;
             if (min == 0 && max == 0)
-                Products = await  ProductService.GetAllProducts();
+                Prod = await  ProductService.GetAllProducts();
             else
-                Products = await ProductService.GetFilterProducts(min, max);
+                Prod = await ProductService.GetFilterProducts(min, max);
+            foreach (Product item in Prod)
+            {
+                var I = await ProductService.GetProductImages(item.ID);
+                item.ImageUrl = I[0].ImageUrl;
+            }
+            Products = Prod;
 
             Storage.SetProperty("MinimumFilter", 0);
             Storage.SetProperty("MaximumFilter", 0);

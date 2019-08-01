@@ -19,18 +19,10 @@ namespace OnlineShoppingXamarin.Services
         {
             var result = await httpClient.GetStringAsync(url);
             ObservableCollection<Product> products = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
-            foreach(Product item in products)
-            {
-                item.Images =await GetProductImages(item.ID);
-            }
            
             return products;
         }
-        private async Task<Image> GetProductImage(Guid ProdId)
-        {
-            var Images = await GetProductImages(ProdId);
-            return Images[0];
-        }
+       
 
         public async Task<ObservableCollection<Product>> GetFilterProducts(int min, int max)
         {
