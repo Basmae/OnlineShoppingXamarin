@@ -78,12 +78,19 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         private async void AddCart()
         {
-            User user =await UserService.GetUser(Storage.GetProperty("UserName").ToString());
-            UserService.AddToCart(user.Id, Product, Counter);
-            // Storage.ReturnHome();
-            Page opened = Storage.GetLastPage();
-            await Navigation.PushAsync(new HomePage());
-            Navigation.RemovePage(opened);
+            if (Product.Quantity >= Counter)
+            {
+                User user = await UserService.GetUser(Storage.GetProperty("UserName").ToString());
+                UserService.AddToCart(user.Id, Product, Counter);
+                Page opened = Storage.GetLastPage();
+                await Navigation.PushAsync(new HomePage());
+                Navigation.RemovePage(opened);
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("", "sorry the available quantity is less than your order", "OK");
+            }
+           
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OnlineShoppingXamarin.Model;
 using OnlineShoppingXamarin.Services;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +18,7 @@ namespace OnlineShoppingXamarin.ViewModel
         public INavigation Navigation { get; set; }
        
         private IUserService UserService;
-        private bool isLoading = false;
+        private bool isLoading;
         public bool IsLoading { get=>isLoading; set
             {
                 if (isLoading != value)
@@ -36,12 +37,13 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         public async void UserExist()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (CrossConnectivity.Current.IsConnected)
             {
                 try
                 {
                     IsLoading = true;
-                    if (await UserService.UserExist(UserName))
+                    bool Exist = await UserService.UserExist(UserName);
+                    if (Exist)
                     {
                         Storage.SetProperty("UserName", UserName);
                         IsLoading = false;
