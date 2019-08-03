@@ -83,6 +83,7 @@ namespace OnlineShoppingXamarin.ViewModel
                 User user = await UserService.GetUser(Storage.GetProperty("UserName").ToString());
                 UserService.AddToCart(user.Id, Product, Counter);
                 Page opened = Storage.GetLastPage();
+                DependencyService.Get<IMessage>().Message("Cart updated successfully");
                 await Navigation.PushAsync(new HomePage());
                 Navigation.RemovePage(opened);
             }
