@@ -40,7 +40,18 @@ namespace OnlineShoppingXamarin.ViewModel
             } }
         private IProductService ProductService;
 
-
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get => isLoading; set
+            {
+                if (isLoading != value)
+                {
+                    isLoading = value;
+                    OnPropertyChanged(nameof(IsLoading));
+                }
+            }
+        }
         public ICommand DetailsCommand { get; private set; }
        
         public HomeViewModel(INavigation _Navigation)
@@ -53,6 +64,7 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         public async void OnAppearing()
         {
+            IsLoading = true;
              GetData();
         }
         private async void GetData()
@@ -82,6 +94,7 @@ namespace OnlineShoppingXamarin.ViewModel
 
             Storage.SetProperty("MinimumFilter", 0);
             Storage.SetProperty("MaximumFilter", 0);
+            IsLoading = false;
 
         }
         private async void ProductSelected()

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Android.Net;
 
 namespace OnlineShoppingXamarin.Services
 {
     public class UserService : IUserService
     {
         private string url = "http://eshopbasma.azurewebsites.net/api/";
-        HttpClient httpClient = new HttpClient();
+        HttpClient httpClient = new HttpClient(new AndroidClientHandler());
         ProductService ProductService = new ProductService();
        
         public async void AddToCart(Guid UserId, Product Prod,int quantity)
