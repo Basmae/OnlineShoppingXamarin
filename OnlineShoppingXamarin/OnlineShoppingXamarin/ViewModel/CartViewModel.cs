@@ -27,7 +27,18 @@ namespace OnlineShoppingXamarin.ViewModel
                 }
             }
         }
-
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get => isLoading; set
+            {
+                if (isLoading != value)
+                {
+                    isLoading = value;
+                    OnPropertyChanged(nameof(IsLoading));
+                }
+            }
+        }
         private ObservableCollection<Cart> carts { get; set; }
         private User user { get; set; }
         public User User { get => user; set {
@@ -59,6 +70,7 @@ namespace OnlineShoppingXamarin.ViewModel
         }
         public void OnAppearing()
         {
+            IsLoading = true;
             GetData();
         }
         private async void GetData()
@@ -74,6 +86,7 @@ namespace OnlineShoppingXamarin.ViewModel
                 cart.Product.ImageUrl = I[0].ImageUrl;
             }
             Carts = UserCart;
+            IsLoading = false;
 
         }
         public async void SubmitOrder()

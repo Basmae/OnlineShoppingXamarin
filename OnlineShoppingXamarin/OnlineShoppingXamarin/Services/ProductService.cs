@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OnlineShoppingXamarin.Model;
+using Xamarin.Android.Net;
 
 namespace OnlineShoppingXamarin.Services
 {
     public class ProductService : IProductService
     {
         private string url = "http://eshopbasma.azurewebsites.net/api/Products";
-        HttpClient httpClient = new HttpClient();
+        HttpClient httpClient = new HttpClient(new AndroidClientHandler());
         
         public async Task< ObservableCollection<Product>> GetAllProducts()
         {
